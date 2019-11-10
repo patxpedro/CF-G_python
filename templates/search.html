@@ -1,10 +1,40 @@
 <!doctype html>
 <html>
-    <head><title>Ecological path</title></head>
+    <head>
+        <title>Book Parlour</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/search.css')}}">
+    </head>
     <body>
         <div>
-            <h1>search</h1>
-            {{results}}
+            {% if not data  %}
+                <div>
+                    <h3>Your search did not return any results</h3>
+                </div>
+            {% else %}
+            
+
+
+                <h1>Your Book List:</h1>
+                <!-- {{results}} this prints raw results-->
+                <div class="booklist">
+                    {% for item in data %}
+                    
+                        <div class="book">
+                            <div class="bookTitle">
+                                <h4>{{item.title}}</h4>
+                            </div>
+                            <div>
+                                <h5>{{item.author}}</h5>
+                            </div>
+                            <!-- <div class="book_image"> -->
+                                <img class="bookimage" src= "{{item.image}}">
+                            <!-- </div> -->
+                            <!-- <button onclick="window.location.href = ' www.amazon.com/s?i=stripbooks&rh=p_66%3A{{item.isbn}}&s=relevanceexprank&Adv-Srch-Books-Submit.x=36&Adv-Srch-Books-Submit.y=8&unfiltered=1&ref=sr_adv_b';">Buy on Amazon</button> -->
+                        </div>
+                 
+                    {% endfor %}
+                 </div>
+             {% endif %}
         </div>
         <div>
             
