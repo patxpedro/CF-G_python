@@ -14,7 +14,7 @@ api_key = os.getenv("goodreads_key")
 def hello():
     return render_template('index.html')
 
-@app.route("/search")
+@app.route("/search", methods=['POST', 'GET'])
 def search():
     searchText = request.args.get("searchText")
     if not searchText:

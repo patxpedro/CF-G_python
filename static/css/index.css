@@ -1,0 +1,13 @@
+.parent {
+    height:100vh; 
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.one {
+    justify-content: center;
+    align-self:center;
+    }
+
