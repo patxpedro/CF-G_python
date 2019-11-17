@@ -11,15 +11,17 @@ api_key = os.getenv("goodreads_key")
 #Create the application_main page
 app = Flask("BookParlour")
 
-#Display index page at "/"
+#Display index/landing page page at "/"
 @app.route("/")
 def mainSearchx ():
     return render_template('index.html')
 
+#Display ful list of books available to borrow
 @app.route("/list_book")
 def list_book():
     return render_template('list_book.html')
 
+#Display results of when user searchs for book to share
 @app.route("/search", methods=['POST', 'GET'])
 def search():
     searchText = request.args.get("searchText")
