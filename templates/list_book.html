@@ -3,7 +3,7 @@
 
 <head>
 	<title>List your book</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list_book.css')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css ">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
@@ -11,7 +11,19 @@
 </head>
 
 <body>
-	<div class="jumbotron text-center">
+	<!-- Nav bar -->
+	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+			<h5 class="my-0 mr-md-auto font-weight-normal">Book Parlour</h5>
+			<nav class="my-2 my-md-0 mr-md-3">
+				<a class="p-2 text-dark" href="#">Available Books</a>
+				<a class="p-2 text-dark" href="#">Share a book</a>
+				<a class="p-2 text-dark" href="#">About this project</a>
+			</nav>
+			<a class="btn btn-outline-primary" href="#">Sign up</a>
+			<a class="btn btn-outline-primary" href="#">Sign in</a>
+		</div>
+
+	<div class="jumbotron text-center" id="jumbotron">
 		<div class="col-sm-12 ">
 			<h1>List your book.</h1>
 		</div>
@@ -19,16 +31,18 @@
 
 	<section class="text-center" id="contact-form">
 		<div class="container container-text">
-			<form method="post" action="/added">
+			<form method="post" action="/addBook">
 				<div class="form-group">
-					<label for="name">Name:</label>
-					<input type="name" class="form-control" id="name" name="name" required="required" placeholder="What's your name?">
-					<label for="book">Food:</label>
-					<input type="book" class="form-control" id="book" name="book" required="required" placeholder="Book that you want to share!">
-					<label for="postcode">Postcode:</label>
-					<input type="postcode" class="form-control" id="postcode" name="postcode" required="required" placeholder="Enter your postcode">
-					<label for="email">Email:</label>
-					<input type="email" class="form-control" id="email" name="email" required="email" placeholder="Enter your email">
+					<label for="book"><strong>Book: </strong></label>
+					<label for="book">{{title}}</label>
+					<br>
+					<input type="hidden" class="form-control" id="book" name="book" required="required" value="{{title}}">
+					<label for="name"><strong> Your name: </strong></label>
+					<input class="form-control" id="name" name="name" required="required" placeholder="What's your name?">
+					<label for="email"><strong>Email: </strong></label>
+					<input class="form-control" id="email" name="email" required="email" placeholder="Enter your email">
+					<label for="postcode"><strong>Postcode: </strong></label>
+					<input class="form-control" id="postcode" name="postcode" required="required" placeholder="Enter your postcode">
 				</div>
 				<input type="submit" class="btn btn-success" value="Submit" id="submit-button">
 			</form>
