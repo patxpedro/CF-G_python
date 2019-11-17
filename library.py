@@ -5,15 +5,18 @@ import requests
 import json
 import xmltodict
 
-app = Flask("MyApp")
-
-load_dotenv()
+load_dotenv() #load environment variables from a file named .env
 api_key = os.getenv("goodreads_key")
 
+#Create the application_main page
+app = Flask("BookParlour")
+
+#Display index page at "/"
 @app.route("/")
-def hello():
+def mainSearchx ():
     return render_template('index.html')
 
+#Display search page with results
 @app.route("/search")
 def search():
     searchText = request.args.get("searchText")
