@@ -1,29 +1,44 @@
 <!doctype html>
 <html>
     <head>
-
+        <title>Book Parlour</title>
         <link rel="stylesheet" type="text/css" href="../static/css/index.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css ">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-        <title>Ecological path</title>
+       
 
     </head>
     <body>
-        <div class="parent">
-            <div class="child one">
-        <div id="searchBox">
-            <form method="get" action="/search">
-                <label for="search">Search here:</label>
-                <input type="text" id="searchText" name="searchText" placeholder="Write your book name here">
-                <input type="submit" value="Submit" id="submit-button" formaction="/search">
-            </form>
-        </div>
-    </div>
-</div>
+        <!-- Nav bar -->
+            <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+                <h5 class="my-0 mr-md-auto font-weight-normal">Book Parlour</h5>
+                <nav class="my-2 my-md-0 mr-md-3">
+                    <a class="p-2 text-dark" href="#">Available Books</a>
+                    <a class="p-2 text-dark" href="#">Share a book</a>
+                    <a class="p-2 text-dark" href="#">About this project</a>
+                </nav>
+                <a class="btn btn-outline-primary" href="#">Sign up</a>
+                <a class="btn btn-outline-primary" href="#">Sign in</a>
+            </div>
 
+        <!-- Information and first search -->
+        <div class="landing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+            <h1 class="display-4">Do you have a book to share?</h1>
+            <p class="lead">Give other book lovers the oportunity to read a book you love!</p>
+            <p class="lead">Reduce your carbon footprint at the same time!</p>
+            <br>
+            <br>
+            <div id="searchBox">
+                <form method="get" action="/search">
+                    <label for="search"><strong>Start sharing:</strong></label>
+                    <input type="text" id="searchText" name="searchText" placeholder="Write book name here">
+                    <input type="submit" value="Search" id="submit-button" formaction="/search">
+                </form>
+            </div>
+        </div>
 
     </body>
 </html>
