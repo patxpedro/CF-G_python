@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from dotenv import load_dotenv
 import os
 import requests
@@ -11,15 +11,14 @@ api_key = os.getenv("goodreads_key")
 #Create the application_main page
 app = Flask("BookParlour")
 
+availableBooks =[]
+
 #Display index page at "/"
 @app.route("/")
-def mainSearchx ():
-    return render_template('index.html')
+def mainSearch ():
+    return render_template('index.html', list = availableBooks)
 
-@app.route("/list_book")
-def list_book():
-    return render_template('list_book.html')
-
+#Display results of search for user's book
 @app.route("/search", methods=['POST', 'GET'])
 def search():
     searchText = request.args.get("searchText")
@@ -28,10 +27,34 @@ def search():
     searchResults = getResults(searchText) #calls function that returns results from API, passes searchText as parameter
     return render_template('search.html', data = searchResults) #reads html template, looks for placeholder and replaces them with values
 
-@app.route("/searchresults")
-def searchResults():
-    searchText = request.args.get("searchText")
-    return {'results': getResults(searchText)}
+
+#Display form to add user's book
+@app.route("/list_book")
+def list_book():
+    title = request.args.get("bookTitle")
+    return render_template('list_book.html', title=title)
+
+@app.route("/addBook", methods=["POST"])
+def addBook():
+    form_data = request.form
+    print (form_data)
+    bookTitle = form_data["book"]
+    name = form_data["name"]
+    email = form_data["email"]
+    postcode = form_data["postcode"]
+
+    newBook = {"name": name, "bookTitle": bookTitle,"postcode": postcode, "email": email}
+
+    availableBooks.append(newBook)
+
+    # return render_template('index.html')
+    return redirect('/')
+
+
+# @app.route("/searchresults")
+# def searchResults():
+#     searchText = request.args.get("searchText")
+#     return {'results': getResults(searchText)}
 
 #gets results from API
 def getResults(searchText):
@@ -64,5 +87,6 @@ def getResults(searchText):
         results.append(myBook)
 
     return results
+
 
 app.run(debug=True)
