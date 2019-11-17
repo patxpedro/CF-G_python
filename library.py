@@ -16,8 +16,11 @@ app = Flask("BookParlour")
 def mainSearchx ():
     return render_template('index.html')
 
-#Display search page with results
-@app.route("/search")
+@app.route("/list_book")
+def list_book():
+    return render_template('list_book.html')
+
+@app.route("/search", methods=['POST', 'GET'])
 def search():
     searchText = request.args.get("searchText")
     if not searchText:
