@@ -11,18 +11,19 @@
 </head>
 
 <body>
-	<!-- Nav bar -->
+    <!-- Nav bar -->
 	<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-			<h5 class="my-0 mr-md-auto font-weight-normal">Book Parlour</h5>
+			<a class="my-0 mr-md-auto font-weight-normal" href="/">Book Parlour</a>
 			<nav class="my-2 my-md-0 mr-md-3">
 				<a class="p-2 text-dark" href="#">Available Books</a>
-				<a class="p-2 text-dark" href="#">Share a book</a>
-				<a class="p-2 text-dark" href="#">About this project</a>
+				<a class="p-2 text-dark" href="/list_book">Share a book</a>
+				<a class="p-2 text-dark" href="/about">About this project</a>
 			</nav>
 			<a class="btn btn-outline-primary" href="#">Sign up</a>
 			<a class="btn btn-outline-primary" href="#">Sign in</a>
 		</div>
-
+		
+	<!--Header-->
 	<div class="jumbotron text-center" id="jumbotron">
 		<div class="col-sm-12 ">
 			<h1>List your book.</h1>
@@ -31,12 +32,21 @@
 
 	<section class="text-center" id="contact-form">
 		<div class="container container-text">
+
 			<form method="post" action="/addBook">
 				<div class="form-group">
+
+					{% if not title %}
+					<label for="title">Book title:</label>
+					<input type="title" class="form-control" id="title" name="title" required="required" placeholder="Title of your book!">
+					<br>
+					{% else %}
 					<label for="book"><strong>Book: </strong></label>
 					<label for="book">{{title}}</label>
 					<br>
 					<input type="hidden" class="form-control" id="book" name="book" required="required" value="{{title}}">
+					{% endif %}
+
 					<label for="name"><strong> Your name: </strong></label>
 					<input class="form-control" id="name" name="name" required="required" placeholder="What's your name?">
 					<label for="email"><strong>Email: </strong></label>
@@ -46,6 +56,7 @@
 				</div>
 				<input type="submit" class="btn btn-success" value="Submit" id="submit-button">
 			</form>
+	
 		</div>
 	</section>
 

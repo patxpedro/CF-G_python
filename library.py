@@ -18,6 +18,10 @@ availableBooks =[]
 def mainSearch ():
     return render_template('index.html', list = availableBooks)
 
+@app.route("/about")
+def about ():
+    return render_template('about.html')
+
 #Display results of search for user's book
 @app.route("/search", methods=['POST', 'GET'])
 def search():
