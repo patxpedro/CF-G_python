@@ -1,26 +1,33 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, session, render_template, request, redirect
 from dotenv import load_dotenv
 import os
 import requests
 import json
 import xmltodict
+import pandas as pd
+import numpy as np
 
 load_dotenv() #load environment variables from a file named .env
 api_key = os.getenv("goodreads_key")
 
 #Create the application_main page
 app = Flask("BookParlour")
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,?RM'
 
-availableBooks =[]
+availableBooks = json.load(open('static/data/available_books.json', 'r'))
 
 #Display index page at "/"
 @app.route("/")
 def mainSearch ():
-    return render_template('index.html', list = availableBooks)
+    return render_template('index.html', list = availableBooks.values())
 
 @app.route("/about")
 def about ():
     return render_template('about.html')
+
+@app.route("/listed")
+def listed ():
+    return render_template('listed.html', list = availableBooks.values())
 
 #Display results of search for user's book
 @app.route("/search", methods=['POST', 'GET'])
@@ -41,24 +48,32 @@ def list_book():
 @app.route("/addBook", methods=["POST"])
 def addBook():
     form_data = request.form
-    print (form_data)
-    bookTitle = form_data["book"]
-    name = form_data["name"]
-    email = form_data["email"]
-    postcode = form_data["postcode"]
 
-    newBook = {"name": name, "bookTitle": bookTitle,"postcode": postcode, "email": email}
+    if 'username' not in session.keys():
+        error = 'You must be logged in before you can add a book'
+        return render_template('list_book.html', error=error)
+    
+    if session['username']:
+        bookTitle = form_data["book"]
 
-    availableBooks.append(newBook)
+        print(session)
 
-    # return render_template('index.html')
-    return redirect('/')
+        name = session["username"]
+        user = json.load(open('static/data/users.json', 'r'))[name]
+        
+        email = user["email"]
+        postcode = user["postcode"]
 
+        newBook = {"name": name, "bookTitle": bookTitle,"postcode": postcode, "email": email}
 
-# @app.route("/searchresults")
-# def searchResults():
-#     searchText = request.args.get("searchText")
-#     return {'results': getResults(searchText)}
+        availableBooks.update({bookTitle:newBook})
+        json.dump(availableBooks, open('static/data/available_books.json', 'w'))
+
+        # return render_template('index.html')
+        return redirect('/')
+    
+    error = 'You must be logged in before you can add a book'
+    return render_template('list_book.html', error=error)
 
 #gets results from API
 def getResults(searchText):
@@ -92,5 +107,86 @@ def getResults(searchText):
 
     return results
 
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    session.clear()
+    error = None
+
+    if request.method == 'POST':
+
+        username = request.form['username']
+        password = request.form['password']
+
+        users = json.load(open('static/data/users.json', 'r'))
+        user_in_keys = username in users.keys()
+
+        if user_in_keys == False:
+            error = 'Invalid Username/Password'
+
+        else:
+            session['username'] = username
+            session['password'] = password
+
+            return redirect("/")
+
+    return render_template('login.html', error=error)
+
+
+@app.route("/signup", methods=["POST", "GET"])
+def signuppage():
+    return render_template('signup.html')
+
+def update_user_data(form_data):
+
+    username = form_data["username"]
+    password = form_data["password"]
+    email = form_data["email"]
+    postcode = form_data["postcode"]
+
+    users = json.load(open('static/data/users.json', 'r'))
+
+    user_in_keys = username in users.keys()
+    
+    if user_in_keys == True:
+        print(f'You are already registered {username}')
+    else:
+        users.update({username : {
+            'password' : password,
+            'email' : email,
+            'postcode' : postcode,
+        }})
+
+    json.dump(users, open('static/data/users.json', 'w'))
+    
+    return
+
+@app.route("/update_users", methods=["POST", "GET"])
+def update_users():
+    #username, password, users
+    form_data = request.form
+    
+    update_user_data(form_data)
+
+    return redirect('/')
+
+
+def add_to_reading_list(username, reading_lists, book, blurb=''):
+    book = book.title()
+    
+    if username not in reading_lists.keys():
+        reading_lists[username] = dict()
+    if book in reading_lists[username].keys():
+        print(f'{book} has already been added to {username}\'s reading list')
+        return reading_lists
+    
+    reading_lists[username][book] = blurb
+    
+    return reading_lists
+
+    username = ["username"]
+    bookTitle = form_data["book"]
+
+    reading_lists = add_to_reading_list(username, reading_lists, book)
+    reading_lists
 
 app.run(debug=True)
