@@ -21,13 +21,10 @@ availableBooks = json.load(open('static/data/available_books.json', 'r'))
 def mainSearch ():
     return render_template('index.html', list = availableBooks.values())
 
+#Display about page
 @app.route("/about")
 def about ():
     return render_template('about.html')
-
-@app.route("/listed")
-def listed ():
-    return render_template('listed.html', list = availableBooks.values())
 
 #Display results of search for user's book
 @app.route("/search", methods=['POST', 'GET'])
@@ -37,7 +34,6 @@ def search():
         return render_template('search.html', data = []) #if search is empty, return empty list
     searchResults = getResults(searchText) #calls function that returns results from API, passes searchText as parameter
     return render_template('search.html', data = searchResults) #reads html template, looks for placeholder and replaces them with values
-
 
 #Display form to add user's book
 @app.route("/list_book")

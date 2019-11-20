@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Book Parlour</title>
+        <link rel="stylesheet" type="text/css" href="../static/css/index.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css ">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <link rel="shortcut icon" href="static/images/book.ico" type="image/x-icon">
+</head>
+
+<header>
+  <!-- Nav bar -->
+  <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+        <a class="my-0 mr-md-auto font-weight-normal" href="/">Book Parlour</a>
+        <nav class="my-2 my-md-0 mr-md-3">
+            <a class="p-2 text-dark" href="/list_book">Share a book</a>
+            <a class="p-2 text-dark" href="/about">About this project</a>
+        </nav>
+        <a class="btn btn-outline-primary" href="signup">Sign up</a>
+        <a class="btn btn-outline-primary" href="login">Log in</a>
+    </div>
+
+</header>
+
+<body>
+    
+{% block body %}{% endblock %}
+
+</body>
+
+
+</html>
