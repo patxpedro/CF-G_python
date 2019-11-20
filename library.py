@@ -35,6 +35,7 @@ def search():
     searchResults = getResults(searchText) #calls function that returns results from API, passes searchText as parameter
     return render_template('search.html', data = searchResults) #reads html template, looks for placeholder and replaces them with values
 
+
 #Display form to add user's book
 @app.route("/list_book")
 def list_book():
