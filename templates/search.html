@@ -1,49 +1,40 @@
-<!doctype html>
-<html>
-    <head>
-        <title>Book Parlour</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css ">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/search.css')}}">
-        <link rel="shortcut icon" href="static/images/book.ico" type="image/x-icon">
-        <link rel="stylesheet" type="text/css" href="../static/css/search.css">
-    </head>
-    <body>
-        <div>
-            {% if not data  %}
-                <div>
-                    <h3>Your search did not return any results</h3>
-                </div>
-            {% else %}
-            <div class="heading">
-                <h1>Please choose your book from the list:</h1>
-            </div>
-                <!-- {{results}} this prints raw results-->
-                <div class="booklist">
-                            {% for item in data %}
-                                <div class="book">
-                                    <a href="list_book?bookTitle={{item.title}}">
-                                    <div class="bookTitle">
-                                        <h4>{{item.title}}</h4>
-                                    </div>
-                                    <div>
-                                        <h5>{{item.author}}</h5>
-                                    </div>
-                                    <div>
-                                        <img class="bookimage" src= "{{item.image}}">
-                                    </div>
-                                    </a>
-                                </div>
-                             
-                            {% endfor %}
-                 </div>
-             {% endif %}
-        </div>
-        <div>
-            
-        </div>
+{% extends "header.html" %}
 
-    </body>
-</html>
+{% block body %}
+
+<link rel="stylesheet" type="text/css" href="../static/css/search.css">
+<div>
+    {% if not data  %}
+        <div>
+            <h3>Your search did not return any results</h3>
+        </div>
+    {% else %}
+    <div class="heading">
+        <h1>Please choose your book from the list:</h1>
+    </div>
+        <!-- {{results}} this prints raw results-->
+        <div class="booklist">
+                    {% for item in data %}
+                        <div class="book">
+                            <a href="list_book?bookTitle={{item.title}}">
+                            <div class="bookTitle">
+                                <h4>{{item.title}}</h4>
+                            </div>
+                            <div>
+                                <h5>{{item.author}}</h5>
+                            </div>
+                            <div>
+                                <img class="bookimage" src= "{{item.image}}">
+                            </div>
+                            </a>
+                        </div>
+                        
+                    {% endfor %}
+            </div>
+        {% endif %}
+</div>
+<div>
+    
+</div>
+
+{% endblock %}

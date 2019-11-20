@@ -4,8 +4,8 @@ import os
 import requests
 import json
 import xmltodict
-import pandas as pd
-import numpy as np
+#import pandas as pd
+#import numpy as np
 
 load_dotenv() #load environment variables from a file named .env
 api_key = os.getenv("goodreads_key")
