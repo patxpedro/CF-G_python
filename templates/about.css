@@ -1,0 +1,25 @@
+.parent {
+    height:100vh; 
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+.about {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    }
+
+}
+
+/*.one {
+    height:50vh; 
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}*/
